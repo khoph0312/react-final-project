@@ -1,20 +1,19 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import { RegisterContainer, RegisterDetails } from "./styles";
+import { ForgetPasswordContainer, ForgetPasswordDetails } from "./styles";
 import { Formik, Form } from "formik";
-import { loginValidation } from "../../utils/validation";
+import { forgetPasswordValidation } from "../../utils/validation";
 import { useNavigate } from "react-router-dom";
 import { Button, Text, TextField } from "../../components";
-import { registerUser } from "../../utils/api";
 
-const Register = () => {
+const ForgetPassword = () => {
   const navigate = useNavigate();
-  const onLogin = async (values) => {
-    const { username, password } = values;
+  const onForgetPassword = async (values) => {
     try {
-      const registerResult = await registerUser({ username, password });
-      console.log(registerResult);
-      navigate("/home");
+      // const registerResult = await registerUser({ username, password });
+      // console.log(registerResult);
+      alert("Password Changed");
+      navigate("/login");
     } catch (error) {
       console.error("Error while registering user: ", error);
       alert("Wrong username or password.");
@@ -27,34 +26,20 @@ const Register = () => {
     return false;
   };
   return (
-    <RegisterContainer maxWidth={false}>
-      <RegisterDetails>
+    <ForgetPasswordContainer maxWidth={false}>
+      <ForgetPasswordDetails>
         <Grid container justifyContent={"center"} sx={{ textAlign: "center" }}>
           <Formik
-            initialValues={{ username: "", password: "", confirmPassword: "" }}
-            validationSchema={loginValidation}
-            onSubmit={onLogin}
+            initialValues={{ password: "", confirmPassword: "" }}
+            validationSchema={forgetPasswordValidation}
+            onSubmit={onForgetPassword}
           >
             {({ errors, touched, handleSubmit, values, handleChange }) => (
               <Form>
                 <Grid item xs={12} sx={{ paddingTop: "20px" }}>
-                  <Text variant={"h2"}>Register</Text>
+                  <Text variant={"h2"}>Forget Password</Text>
                 </Grid>
                 <Grid container item xs={12} sx={{ padding: "20px 0" }}>
-                  <Grid item xs={12} sx={{ padding: "10px" }}>
-                    <TextField
-                      onChange={handleChange}
-                      value={values.username}
-                      id="username"
-                      label="Username"
-                      error={checkError(touched.username, errors.username)}
-                      helperText={
-                        checkError(touched.username, errors.username)
-                          ? errors.username
-                          : ""
-                      }
-                    />
-                  </Grid>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
                     <TextField
                       onChange={handleChange}
@@ -92,16 +77,16 @@ const Register = () => {
                 </Grid>
                 <Grid container item xs={12} sx={{ padding: "20px 0" }}>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
-                    <Button onClick={handleSubmit}>Register</Button>
+                    <Button onClick={handleSubmit}>Forget Password</Button>
                   </Grid>
                 </Grid>
               </Form>
             )}
           </Formik>
         </Grid>
-      </RegisterDetails>
-    </RegisterContainer>
+      </ForgetPasswordDetails>
+    </ForgetPasswordContainer>
   );
 };
 
-export default Register;
+export default ForgetPassword;

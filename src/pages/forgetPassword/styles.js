@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-const RegisterContainer = styled(Container)`
+const ForgetPasswordContainer = styled(Container)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@ const RegisterContainer = styled(Container)`
   background-size: cover;
 `;
 
-const RegisterDetails = styled(Container)`
+const ForgetPasswordDetails = styled(Container)`
   width: 50vw;
   height: 50vh;
   border-radius: 16px;
@@ -21,4 +21,4 @@ const RegisterDetails = styled(Container)`
   background-color: white;
 `;
 
-export { RegisterContainer, RegisterDetails };
+export { ForgetPasswordContainer, ForgetPasswordDetails };
