@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Link } from "@mui/material";
 import { LoginContainer, LoginDetails } from "./styles";
 import { Formik, Form } from "formik";
 import { loginValidation } from "../../utils/validation";
@@ -8,7 +8,7 @@ import { Button, Text, TextField } from "../../components";
 
 const Login = () => {
   const navigate = useNavigate();
-  const onLogin = (values) => {
+  const login = (values) => {
     const { username, password } = values;
     if (username === "admin" && password === "admin123") {
       navigate("/home");
@@ -22,6 +22,12 @@ const Login = () => {
     }
     return false;
   };
+  const navigateToSignupPage = () => {
+    navigate("/register");
+  };
+  const navigateToForgetPasswordPage = () => {
+    navigate("/forget-password");
+  };
   return (
     <LoginContainer maxWidth={false}>
       <LoginDetails>
@@ -29,7 +35,7 @@ const Login = () => {
           <Formik
             initialValues={{ username: "", password: "" }}
             validationSchema={loginValidation}
-            onSubmit={onLogin}
+            onSubmit={login}
           >
             {({ errors, touched, handleSubmit, values, handleChange }) => (
               <Form>
@@ -66,9 +72,17 @@ const Login = () => {
                     />
                   </Grid>
                 </Grid>
+                <Grid container justifyContent={"flex-end"}>
+                  <Link href="forget-password" underline="none">
+                    Forget Password?
+                  </Link>
+                </Grid>
                 <Grid container item xs={12} sx={{ padding: "20px 0" }}>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
                     <Button onClick={handleSubmit}>Login</Button>
+                  </Grid>
+                  <Grid item xs={12} sx={{ padding: "10px" }}>
+                    <Button onClick={navigateToSignupPage}>Sign up</Button>
                   </Grid>
                 </Grid>
               </Form>
