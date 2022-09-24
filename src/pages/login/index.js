@@ -6,15 +6,22 @@ import { loginValidation } from "../../utils/validation";
 import { useNavigate } from "react-router-dom";
 import { Button, Text, TextField } from "../../components";
 
+const requestHeader = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ name: "test", password: "testpassword" }),
+};
+
 const Login = () => {
   const navigate = useNavigate();
-  const login = (values) => {
-    const { username, password } = values;
-    if (username === "admin" && password === "admin123") {
-      navigate("/home");
-      return;
-    }
-    alert("Wrong username or password.");
+  const login = async () => {
+    fetch("/signup", requestHeader).then((res) =>
+      res.json().then((data) => {
+        console.log(data);
+      })
+    );
   };
   const checkError = (touched, error) => {
     if (touched && error) {
@@ -79,7 +86,7 @@ const Login = () => {
                 </Grid>
                 <Grid container item xs={12} sx={{ padding: "20px 0" }}>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
-                    <Button onClick={handleSubmit}>Login</Button>
+                    <Button onClick={login}>Login</Button>
                   </Grid>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
                     <Button onClick={navigateToSignupPage}>Sign up</Button>
