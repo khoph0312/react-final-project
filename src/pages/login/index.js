@@ -7,21 +7,24 @@ import { useNavigate } from "react-router-dom";
 import { Button, Text, TextField } from "../../components";
 
 const requestHeader = {
-  method: "POST",
+  method: "GET",
+  mode: 'no-cors',
   headers: {
     "Content-Type": "application/json",
   },
-  body: JSON.stringify({ name: "test", password: "testpassword" }),
+  // body: JSON.stringify({ name: "test", password: "testpassword" }),
 };
 
 const Login = () => {
   const navigate = useNavigate();
   const login = async () => {
-    fetch("/signup", requestHeader).then((res) =>
-      res.json().then((data) => {
-        console.log(data);
-      })
-    );
+    // fetch("http://localhost:5000/test", requestHeader).then((res) =>
+    //   res.json().then((data) => {
+    //     console.log(data);
+    //   })
+    // );
+    const result = await fetch("/test", requestHeader);
+    console.log(result)
   };
   const checkError = (touched, error) => {
     if (touched && error) {
