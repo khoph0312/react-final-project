@@ -8,7 +8,6 @@ import { Button, Text, TextField } from "../../components";
 
 const requestHeader = {
   method: "GET",
-  mode: 'no-cors',
   headers: {
     "Content-Type": "application/json",
   },
@@ -18,13 +17,11 @@ const requestHeader = {
 const Login = () => {
   const navigate = useNavigate();
   const login = async () => {
-    // fetch("http://localhost:5000/test", requestHeader).then((res) =>
-    //   res.json().then((data) => {
-    //     console.log(data);
-    //   })
-    // );
-    const result = await fetch("/test", requestHeader);
-    console.log(result)
+    await fetch("http://localhost:5000/test", requestHeader).then((res) =>
+      res.json().then((data) => {
+        console.log(data);
+      })
+    );
   };
   const checkError = (touched, error) => {
     if (touched && error) {
