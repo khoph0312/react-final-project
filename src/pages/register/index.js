@@ -5,15 +5,30 @@ import { Formik, Form } from "formik";
 import { loginValidation } from "../../utils/validation";
 import { useNavigate } from "react-router-dom";
 import { Button, Text, TextField } from "../../components";
-import { registerUser } from "../../utils/api";
+
+const requestHeader = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  // body: JSON.stringify({ name: "test", password: "testpassword" }),
+};
 
 const Register = () => {
   const navigate = useNavigate();
   const onLogin = async (values) => {
     const { username, password } = values;
+    const registerHeader = {
+      ...requestHeader,
+      body: JSON.stringify({ username, password }),
+    };
     try {
-      const registerResult = await registerUser({ username, password });
-      console.log(registerResult);
+      await fetch("http://localhost:5000/register", registerHeader).then(
+        (res) =>
+          res.json().then((data) => {
+            console.log(data);
+          })
+      );
       navigate("/home");
     } catch (error) {
       console.error("Error while registering user: ", error);
