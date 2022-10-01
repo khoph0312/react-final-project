@@ -1,6 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
-import Menu from "@mui/icons-material/Menu";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 const CustomAddBar = () => {
   return (

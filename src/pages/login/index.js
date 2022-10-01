@@ -80,7 +80,11 @@ const Login = () => {
                   </Grid>
                 </Grid>
                 <Grid container justifyContent={"flex-end"}>
-                  <Link href="forget-password" underline="none">
+                  <Link
+                    href="forget-password"
+                    underline="none"
+                    onClick={navigateToForgetPasswordPage}
+                  >
                     Forget Password?
                   </Link>
                 </Grid>
