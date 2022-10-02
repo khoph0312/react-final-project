@@ -11,6 +11,7 @@ import Home from "./pages/home";
 import Leaderboard from "./pages/leaderboard";
 import AboutUs from "./pages/aboutUs";
 import ContactUs from "./pages/contactUs";
+import Questions from "./pages/questions";
 
 function App() {
   const drawer = (Element) => (
@@ -32,6 +33,7 @@ function App() {
       <Route path="leaderboard" element={drawer(Leaderboard)} />
       <Route path="about-us" element={drawer(AboutUs)} />
       <Route path="contact-us" element={drawer(ContactUs)} />
+      <Route path="questions/:mode" element={drawer(Questions)} />
     </Routes>
   );
 }

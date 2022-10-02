@@ -14,7 +14,8 @@ const CustomDrawer = () => {
   ];
 
   const logoutButton = (
-    <ListItem key="logout">
+    // TODO: add logout function
+    <ListItem key="logout" onClick={() => {}}>
       <Typography>Logout</Typography>
     </ListItem>
   );
