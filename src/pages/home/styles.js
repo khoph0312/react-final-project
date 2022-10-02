@@ -1,11 +1,15 @@
-import { Container } from "@mui/material";
-import { styled } from "@mui/material/styles";
+const cardStyle = {
+  width: 570,
+  height: 298,
+  borderRadius: 16,
+  borderStyle: "solid",
+  borderWidth: 1,
+  cursor: "pointer",
+  display: "flex",
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+};
 
-const HomeContainer = styled(Container)`
-  justify-content: center;
-  height: 100vh;
-  background-image: url("https://img.freepik.com/free-vector/white-abstract-background-design_23-2148825582.jpg?w=1060&t=st=1660976541~exp=1660977141~hmac=b9138c00ea2b87351e1be558c1d05df645985fb0c7089bd117093d9beec8be9f");
-  background-size: cover;
-`
-
-export { HomeContainer };
+export { cardStyle };
