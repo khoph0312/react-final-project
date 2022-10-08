@@ -3,6 +3,7 @@ import { Typography, Box, Grid } from "@mui/material";
 import { easyQuestions, mediumQuestions } from "../../data/questions";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "../../components";
+import { questionStyle, selectionStyle, questionPageStyle } from "./styles";
 
 const Questions = () => {
   const { mode } = useParams();
@@ -19,48 +20,24 @@ const Questions = () => {
 
   const questionsList = selectedQuestions.questions;
 
-  const selectionView = (item) => (
+  const selectionView = (item, index) => (
     <Grid container item xs={3} justifyContent="center">
-      <Box
-        sx={{
-          backgroundColor: "white",
-          width: "90%",
-          height: "40px",
-          display: "flex",
-          borderRadius: "16px",
-          borderStyle: "solid",
-          borderWidth: "1px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Typography>{`${item}`}</Typography>
+      <Box sx={selectionStyle}>
+        <Typography>{`${String.fromCharCode(65 + index)}) ${item}`}</Typography>
       </Box>
     </Grid>
   );
 
-  const questionView = (index, question, selections) => (
+  const questionView = (questionIndex, question, selections) => (
     <Grid container sx={{ width: "69%" }}>
       <Grid item xs={12}>
-        <Box
-          sx={{
-            backgroundColor: "white",
-            width: "100%",
-            height: "150px",
-            margin: "16px 0 8px",
-            display: "flex",
-            borderRadius: "16px",
-            padding: "8px",
-            borderStyle: "solid",
-            borderWidth: "1px",
-          }}
-        >
-          <Typography>{`Q${index + 1}. ${question}`}</Typography>
+        <Box sx={questionStyle}>
+          <Typography>{`Q${questionIndex + 1}. ${question}`}</Typography>
         </Box>
       </Grid>
       <Grid container item>
-        {selections.map((item) => (
-          <>{selectionView(item)}</>
+        {selections.map((item, index) => (
+          <>{selectionView(item, index)}</>
         ))}
       </Grid>
     </Grid>
@@ -80,13 +57,7 @@ const Questions = () => {
   );
 
   return (
-    <Box
-      sx={{
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <Box sx={questionPageStyle}>
       {questionsList.map(({ question, selections }, index) => (
         <>{questionView(index, question, selections)}</>
       ))}

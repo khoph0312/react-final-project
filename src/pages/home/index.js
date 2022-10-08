@@ -6,7 +6,10 @@ const Home = () => {
   const NAME = "khoph";
 
   const nameView = (
-    <Typography variant="h3">{`Welcome back, ${NAME}`}</Typography>
+    <Typography
+      variant="h3"
+      sx={{ paddingLeft: "16px" }}
+    >{`Welcome back, ${NAME}`}</Typography>
   );
 
   const scores = [6, 14, 15];
@@ -40,7 +43,10 @@ const Home = () => {
     <Grid
       container
       justifyContent="space-evenly"
-      sx={{ height: "calc(100% - 48px)", alignContent: "center" }}
+      sx={{
+        height: "calc(100% - 48px)",
+        alignContent: "center",
+      }}
     >
       {cards.map(({ color, text, numberOfCorrectAnswers }) => (
         <Grid container item xs={3}>
