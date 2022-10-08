@@ -24,10 +24,7 @@ const Login = () => {
     );
   };
   const checkError = (touched, error) => {
-    if (touched && error) {
-      return true;
-    }
-    return false;
+    return touched && error
   };
   const navigateToSignupPage = () => {
     navigate("/register");

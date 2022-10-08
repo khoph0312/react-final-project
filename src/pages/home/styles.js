@@ -10,6 +10,7 @@ const cardStyle = {
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
+  padding: "16px",
 };
 
 export { cardStyle };
