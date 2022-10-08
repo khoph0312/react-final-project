@@ -1,30 +1,52 @@
-import React from "react";
-import { Typography, Box, Grid } from "@mui/material";
-import { easyQuestions, mediumQuestions } from "../../data/questions";
+import React, { useState } from "react";
+import {
+  Typography,
+  Box,
+  Grid,
+  Card,
+  DialogTitle,
+  IconButton,
+  Dialog,
+  DialogContent,
+} from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "../../components";
 import { questionStyle, selectionStyle, questionPageStyle } from "./styles";
+import { selectedQuestions, selectAnswer, onClickHandler } from "./util";
+import { Close } from "@mui/icons-material";
 
 const Questions = () => {
+  const [submittedAnswers, setSubmittedAnswers] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [dialogDetail, setDialogDetail] = useState({});
   const { mode } = useParams();
   const navigate = useNavigate();
 
-  const modes = [
-    { questionMode: "easy", questions: easyQuestions },
-    { questionMode: "medium", questions: mediumQuestions },
-  ];
+  const questionsList = selectedQuestions(mode).questions;
 
-  const selectedQuestions = modes.find(({ questionMode }) => {
-    return mode === questionMode;
-  });
-
-  const questionsList = selectedQuestions.questions;
-
-  const selectionView = (item, index) => (
+  const selectionView = (questionIndex, item, index) => (
     <Grid container item xs={3} justifyContent="center">
-      <Box sx={selectionStyle}>
+      <Card
+        sx={{
+          ...selectionStyle,
+          backgroundColor: submittedAnswers.find(
+            ({ answer, questionNumber }) =>
+              questionNumber === questionIndex && answer === item
+          )
+            ? "aquamarine"
+            : "white",
+        }}
+        onClick={() =>
+          selectAnswer(
+            questionIndex,
+            item,
+            submittedAnswers,
+            setSubmittedAnswers
+          )
+        }
+      >
         <Typography>{`${String.fromCharCode(65 + index)}) ${item}`}</Typography>
-      </Box>
+      </Card>
     </Grid>
   );
 
@@ -37,32 +59,68 @@ const Questions = () => {
       </Grid>
       <Grid container item>
         {selections.map((item, index) => (
-          <>{selectionView(item, index)}</>
+          <>{selectionView(questionIndex, item, index)}</>
         ))}
       </Grid>
     </Grid>
   );
 
+  const getResult = () => {
+    let count = 0;
+    submittedAnswers.map(({ questionNumber, answer }) => {
+      if (questionsList[questionNumber].correctAnswer === answer) count++;
+    });
+    return count;
+  };
+
+  const onCloseHandler = () => {
+    setOpen(false);
+    if (submittedAnswers.length === 10) {
+      navigate("/home");
+    }
+  };
+
   const submitButton = (
-    // TODO: change to API call when it is done
     <div style={{ padding: "16px 0" }}>
       <Button
-        onClick={() => {
-          navigate("/home");
-        }}
+        onClick={() =>
+          onClickHandler(submittedAnswers, setDialogDetail, setOpen, getResult)
+        }
       >
         Submit Answer
       </Button>
     </div>
   );
 
+  const modalTitle = (title) => (
+    <DialogTitle sx={{ display: "flex", flex: 1 }}>
+      <Typography
+        variant="h4"
+        sx={{ display: "flex", flex: 1, justifyContent: "center" }}
+      >
+        {title}
+      </Typography>
+      <IconButton aria-label="close" onClick={onCloseHandler}>
+        <Close />
+      </IconButton>
+    </DialogTitle>
+  );
+
   return (
-    <Box sx={questionPageStyle}>
-      {questionsList.map(({ question, selections }, index) => (
-        <>{questionView(index, question, selections)}</>
-      ))}
-      {submitButton}
-    </Box>
+    <>
+      <Box sx={questionPageStyle}>
+        {questionsList.map(({ question, selections }, index) => (
+          <>{questionView(index, question, selections)}</>
+        ))}
+        {submitButton}
+      </Box>
+      <Dialog onClose={onCloseHandler} open={open}>
+        {modalTitle(dialogDetail.title)}
+        <DialogContent sx={{ minWidth: "500px" }}>
+          <Typography variant="body1">{dialogDetail.detail}</Typography>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

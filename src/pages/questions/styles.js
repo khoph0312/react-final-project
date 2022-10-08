@@ -2,7 +2,6 @@ const questionPageStyle = {
   alignItems: "center",
   display: "flex",
   flexDirection: "column",
-  background: `rgb(168, 168, 168)`,
   background: `radial-gradient(
     circle,
     rgba(168, 168, 168, 1) 0%,
@@ -23,7 +22,6 @@ const questionStyle = {
 };
 
 const selectionStyle = {
-  backgroundColor: "white",
   width: "90%",
   height: "40px",
   display: "flex",
