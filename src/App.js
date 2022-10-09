@@ -12,6 +12,7 @@ import Leaderboard from "./pages/leaderboard";
 import AboutUs from "./pages/aboutUs";
 import ContactUs from "./pages/contactUs";
 import Questions from "./pages/questions";
+import NotFound from "./pages/notFound";
 
 function App() {
   const drawer = (Element) => (
@@ -24,6 +25,7 @@ function App() {
       </Box>
     </Box>
   );
+
   return (
     <Routes>
       <Route path="/" element={<Login />} />
@@ -34,6 +36,14 @@ function App() {
       <Route path="about-us" element={drawer(AboutUs)} />
       <Route path="contact-us" element={drawer(ContactUs)} />
       <Route path="questions/:mode" element={drawer(Questions)} />
+      <Route
+        path="*"
+        element={
+          <MainContainer disableGutters maxWidth={false}>
+            <NotFound />
+          </MainContainer>
+        }
+      />
     </Routes>
   );
 }
