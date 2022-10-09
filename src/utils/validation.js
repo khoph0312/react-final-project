@@ -9,6 +9,11 @@ const confirmPassword = yup
 const loginValidation = yup.object().shape({
   username: yup.string().required("Username is required"),
   password,
+});
+
+const registerValidation = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password,
   confirmPassword,
 });
 
@@ -23,4 +28,4 @@ const contactUsValidation = yup.object().shape({
   message: yup.string().required("Message is required"),
 });
 
-export { loginValidation, forgetPasswordValidation, contactUsValidation };
+export { loginValidation, forgetPasswordValidation, contactUsValidation, registerValidation };

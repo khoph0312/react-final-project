@@ -5,23 +5,18 @@ import { Formik, Form } from "formik";
 import { loginValidation } from "../../utils/validation";
 import { useNavigate } from "react-router-dom";
 import { Button, Text, TextField } from "../../components";
-
-const requestHeader = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  // body: JSON.stringify({ name: "test", password: "testpassword" }),
-};
+import {performServiceCall} from '../../utils/api'
 
 const Login = () => {
   const navigate = useNavigate();
-  const login = async () => {
-    await fetch("http://localhost:5000/test", requestHeader).then((res) =>
-      res.json().then((data) => {
-        console.log(data);
-      })
-    );
+  const login = async (values) => {
+    const { username, password } = values;
+    try {
+      const result = await performServiceCall('POST', 'login', {username, password});
+      } catch (error) {
+        console.error("Error while registering user: ", error);
+        alert("Wrong username or password.");
+      }
   };
   const checkError = (touched, error) => {
     return touched && error
@@ -87,7 +82,7 @@ const Login = () => {
                 </Grid>
                 <Grid container item xs={12} sx={{ padding: "20px 0" }}>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
-                    <Button onClick={login}>Login</Button>
+                    <Button onClick={handleSubmit}>Login</Button>
                   </Grid>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
                     <Button onClick={navigateToSignupPage}>Sign up</Button>

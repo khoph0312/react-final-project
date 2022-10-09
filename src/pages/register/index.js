@@ -1,35 +1,18 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid } from "@mui/material"
 import { RegisterContainer, RegisterDetails } from "./styles";
 import { Formik, Form } from "formik";
-import { loginValidation } from "../../utils/validation";
+import { registerValidation } from "../../utils/validation";
 import { useNavigate } from "react-router-dom";
 import { Button, Text, TextField } from "../../components";
-
-const requestHeader = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  // body: JSON.stringify({ name: "test", password: "testpassword" }),
-};
+import {performServiceCall} from '../../utils/api'
 
 const Register = () => {
   const navigate = useNavigate();
   const onLogin = async (values) => {
     const { username, password } = values;
-    const registerHeader = {
-      ...requestHeader,
-      body: JSON.stringify({ username, password }),
-    };
     try {
-      await fetch("http://localhost:5000/register", registerHeader).then(
-        (res) =>
-          res.json().then((data) => {
-            console.log(data);
-          })
-      );
-      navigate("/home");
+    const result = await performServiceCall('POST', 'register', {username, password});
     } catch (error) {
       console.error("Error while registering user: ", error);
       alert("Wrong username or password.");
@@ -47,7 +30,7 @@ const Register = () => {
         <Grid container justifyContent={"center"} sx={{ textAlign: "center" }}>
           <Formik
             initialValues={{ username: "", password: "", confirmPassword: "" }}
-            validationSchema={loginValidation}
+            validationSchema={registerValidation}
             onSubmit={onLogin}
           >
             {({ errors, touched, handleSubmit, values, handleChange }) => (
