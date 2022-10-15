@@ -2,26 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Typography, Grid, Card } from "@mui/material";
 import { cardStyle } from "./styles";
 import { useNavigate } from "react-router-dom";
-import {performServiceCall} from '../../utils/api'
+import { performServiceCall } from "../../utils/api";
 
 const Home = () => {
-  const [userInfo, setUserInfo] = useState()
+  const [userInfo, setUserInfo] = useState();
   const navigate = useNavigate();
   const NAME = "khoph";
 
   const getUserInfo = async () => {
     try {
-      const result = await performServiceCall('GET', 'user');
-      } catch (error) {
-        console.error("Error while getting user info: ", error);
-        alert("Wrong username or password.");
-      }
-  }
-
+      const result = await performServiceCall("GET", "user");
+    } catch (error) {
+      console.error("Error while getting user info: ", error);
+      alert("Wrong username or password.");
+    }
+  };
 
   useEffect(() => {
-    getUserInfo()
-  }, [])
+    getUserInfo();
+  }, []);
 
   const nameView = (
     <Typography
@@ -51,16 +50,14 @@ const Home = () => {
       numberOfCorrectAnswers: getNumberOfCorrectAnswers(scores[1] || 0, 2),
       mode: "medium",
     },
-    // {
-    //   color:
-    //     "radial-gradient(circle, rgba(247,121,121,1) 0%, rgba(222,15,15,1) 100%)",
-    //   text: "HARD",
-    //   numberOfCorrectAnswers: getNumberOfCorrectAnswers(scores[2] || 0, 3),
-    //   mode: "hard",
-    // },
+    {
+      color:
+        "radial-gradient(circle, rgba(247,121,121,1) 0%, rgba(222,15,15,1) 100%)",
+      text: "HARD",
+      numberOfCorrectAnswers: getNumberOfCorrectAnswers(scores[2] || 0, 3),
+      mode: "hard",
+    },
   ];
-
-
 
   const cardView = (
     <Grid

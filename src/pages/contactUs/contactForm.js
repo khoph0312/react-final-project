@@ -16,7 +16,9 @@ const ContactForm = () => {
       justifyContent="center"
       sx={{
         textAlign: "center",
-        paddingTop: "16px",
+        backgroundColor: "white",
+        borderRadius: "12px",
+        padding: "0 32px",
       }}
     >
       <Formik

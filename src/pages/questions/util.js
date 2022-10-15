@@ -1,8 +1,13 @@
-import { easyQuestions, mediumQuestions } from "../../data/questions";
+import {
+  easyQuestions,
+  hardQuestions,
+  mediumQuestions,
+} from "../../data/questions";
 
 const modes = [
   { questionMode: "easy", questions: easyQuestions },
   { questionMode: "medium", questions: mediumQuestions },
+  { questionMode: "hard", questions: hardQuestions },
 ];
 
 export const selectedQuestions = (mode) =>

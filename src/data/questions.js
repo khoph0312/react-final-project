@@ -72,3 +72,56 @@ export const mediumQuestions = [
     correctAnswer: "Square",
   },
 ];
+
+export const hardQuestions = [
+  {
+    question: "x + 3 = 5. x = ?",
+    selections: [1, 4, 2, -2],
+    correctAnswer: 2,
+  },
+  {
+    question: "x - 3 = 7. x = ?",
+    selections: [10, 8, 13, 20],
+    correctAnswer: 10,
+  },
+  {
+    question: "2x + 13 = 47. x = ?",
+    selections: [39, 34, 30, 20],
+    correctAnswer: 34,
+  },
+  {
+    question: "0.5x - 12 = 10. x = ?",
+    selections: [45, 50, 48, 44],
+    correctAnswer: 44,
+  },
+  {
+    question: "0.5x - 12 = 10. x = ?",
+    selections: [45, 50, 48, 44],
+    correctAnswer: 44,
+  },
+  {
+    question: "2x^2 -8 = 10. x = ?",
+    selections: [4, 1, 3, 5],
+    correctAnswer: 3,
+  },
+  {
+    question: "3x + 10 = x + 30. x = ?",
+    selections: [9, 10, 13, 15],
+    correctAnswer: 10,
+  },
+  {
+    question: "3x + 10 = 38 - x. x = ?",
+    selections: [9, 5, 12, 7],
+    correctAnswer: 7,
+  },
+  {
+    question: "2x + y = 8, y + x = 5. x = ?",
+    selections: [3, 5, 2, 6],
+    correctAnswer: 3,
+  },
+  {
+    question: "3x - 2y = 10, 2y - x = 2. y = ?",
+    selections: [9, 7, 3, 4],
+    correctAnswer: 4,
+  },
+];

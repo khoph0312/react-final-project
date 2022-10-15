@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
+import StaffInfo from "./StaffInfo";
 
 const AboutUs = () => {
   return (
@@ -9,13 +10,14 @@ const AboutUs = () => {
         flex: 1,
         alignItems: "center",
         flexDirection: "column",
-        padding: "16px",
+        padding: "32px",
       }}
     >
       <Typography variant="h3">About Us</Typography>
-      <Typography variant="h5">
+      <Typography variant="h5" sx={{ marginBottom: "40px" }}>
         These are the team that built up the math quiz websites.
       </Typography>
+      <StaffInfo />
     </Box>
   );
 };
