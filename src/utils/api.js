@@ -10,9 +10,20 @@ export const performServiceCall = async (method, apiUrl, body) => {
         if (body) {
             header = {...header, body: JSON.stringify(body)}
         }
-        const response = await fetch(`http://localhost:5000/${apiUrl}`, header)
-        console.log(response)
+        const token = localStorage.getItem('token');
+        console.log(token)
+        if (token) {
+            header = {...header, headers:{'x-access-token': token}}
+        }
+        const response = await fetch(`http://localhost:5000/${apiUrl}`, header);
+        const responseCode = response.status;
+        const formattedResponse = await response.json();
+        if (responseCode === 200) {
+            return formattedResponse;
+        }
+        const errorMessage = formattedResponse?.errorMessage
+        throw errorMessage;
     } catch (err) {
-        throw err
+        throw err;
     }
 }

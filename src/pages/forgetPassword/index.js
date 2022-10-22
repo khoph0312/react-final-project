@@ -5,18 +5,18 @@ import { Formik, Form } from "formik";
 import { forgetPasswordValidation } from "../../utils/validation";
 import { useNavigate } from "react-router-dom";
 import { Button, Text, TextField } from "../../components";
+import {performServiceCall} from '../../utils/api'
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const onForgetPassword = async (values) => {
+    const {username, password} = values
     try {
-      // const registerResult = await registerUser({ username, password });
-      // console.log(registerResult);
+      await performServiceCall('POST', 'forget', {username, password});
       alert("Password Changed");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
-      console.error("Error while registering user: ", error);
-      alert("Wrong username or password.");
+      alert(error)
     }
   };
   const checkError = (touched, error) => {
@@ -28,18 +28,32 @@ const ForgetPassword = () => {
   return (
     <ForgetPasswordContainer maxWidth={false}>
       <ForgetPasswordDetails>
-        <Grid container justifyContent={"center"} sx={{ textAlign: "center" }}>
+        <Grid container justifyContent="center" sx={{ textAlign: "center" }}>
           <Formik
-            initialValues={{ password: "", confirmPassword: "" }}
+            initialValues={{ username: "", password: "", confirmPassword: "" }}
             validationSchema={forgetPasswordValidation}
             onSubmit={onForgetPassword}
           >
             {({ errors, touched, handleSubmit, values, handleChange }) => (
               <Form>
                 <Grid item xs={12} sx={{ paddingTop: "20px" }}>
-                  <Text variant={"h2"}>Forget Password</Text>
+                  <Text variant="h2">Forget Password</Text>
                 </Grid>
                 <Grid container item xs={12} sx={{ padding: "20px 0" }}>
+                <Grid item xs={12} sx={{ padding: "10px" }}>
+                    <TextField
+                      onChange={handleChange}
+                      value={values.username}
+                      id="username"
+                      label="Username"
+                      error={checkError(touched.username, errors.username)}
+                      helperText={
+                        checkError(touched.username, errors.username)
+                          ? errors.username
+                          : ""
+                      }
+                    />
+                  </Grid>
                   <Grid item xs={12} sx={{ padding: "10px" }}>
                     <TextField
                       onChange={handleChange}

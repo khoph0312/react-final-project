@@ -12,9 +12,9 @@ const Home = () => {
   const getUserInfo = async () => {
     try {
       const result = await performServiceCall("GET", "user");
+      console.log(result)
     } catch (error) {
       console.error("Error while getting user info: ", error);
-      alert("Wrong username or password.");
     }
   };
 

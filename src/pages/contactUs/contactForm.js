@@ -3,13 +3,27 @@ import { Grid } from "@mui/material";
 import { Formik, Form } from "formik";
 import { contactUsValidation } from "../../utils/validation";
 import { Button, TextField } from "../../components";
+import {performServiceCall} from '../../utils/api'
 
 const ContactForm = () => {
   const checkError = (touched, error) => {
     return touched && error;
   };
 
-  const onSubmitForm = () => {};
+  const sendMessage = async (values) => {
+    const { name, email, subject, message } = values;
+    try {
+      await performServiceCall('POST', 'contact', {name, email, subject, message});
+      alert('message sent');
+      } catch (error) {
+        alert(error);
+      }
+  };
+
+  const onSubmitForm = async (values) => {
+    await sendMessage(values)
+  };
+
   return (
     <Grid
       container
@@ -60,6 +74,10 @@ const ContactForm = () => {
                 value={values.subject}
                 id="subject"
                 label="Subject"
+                error={checkError(touched.subject, errors.subject)}
+                helperText={
+                  checkError(touched.subject, errors.subject) ? errors.subject : ""
+                }
               />
             </Grid>
             <Grid container item xs={12} sx={{ padding: "10px" }}>

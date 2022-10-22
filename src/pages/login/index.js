@@ -13,9 +13,11 @@ const Login = () => {
     const { username, password } = values;
     try {
       const result = await performServiceCall('POST', 'login', {username, password});
+      const token = result.token
+      localStorage.setItem('token', token)
+      navigate('/home');
       } catch (error) {
-        console.error("Error while registering user: ", error);
-        alert("Wrong username or password.");
+        alert(error);
       }
   };
   const checkError = (touched, error) => {

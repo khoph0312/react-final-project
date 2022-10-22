@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 
 const MainContainer = styled(Container)`
   justify-content: center;
-  height: calc(100vh - 48px);
+  minHeight: calc(100vh - 48px);
   background: rgb(168, 168, 168);
   background: radial-gradient(
     circle,

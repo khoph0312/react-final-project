@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import StaffInfo from "./StaffInfo";
+import StaffInfo from "./staffInfo";
 
 const AboutUs = () => {
   return (
