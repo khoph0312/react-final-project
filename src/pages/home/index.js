@@ -12,9 +12,9 @@ const Home = () => {
   const getUserInfo = async () => {
     try {
       const result = await performServiceCall("GET", "user");
-      console.log(result)
+      setUserInfo(result?.data);
     } catch (error) {
-      console.error("Error while getting user info: ", error);
+      alert('Error getting user info: ', error);
     }
   };
 
@@ -26,12 +26,12 @@ const Home = () => {
     <Typography
       variant="h3"
       sx={{ paddingLeft: "16px" }}
-    >{`Welcome back, ${NAME}`}</Typography>
+    >{`Welcome back, ${userInfo?.username || '--'}`}</Typography>
   );
 
   const scores = [6, 14, 15];
 
-  const getNumberOfCorrectAnswers = (score, marks) => {
+  const getResults = (score, marks) => {
     return score / marks;
   };
 
@@ -40,21 +40,21 @@ const Home = () => {
       color:
         "radial-gradient(circle, rgba(121,247,167,1) 0%, rgba(15,222,63,1) 100%)",
       text: "EASY",
-      numberOfCorrectAnswers: getNumberOfCorrectAnswers(scores[0] || 0, 1),
+      numberOfCorrectAnswers: getResults(userInfo?.score_easy || 0, 1),
       mode: "easy",
     },
     {
       color:
         "radial-gradient(circle, rgba(246,255,136,1) 0%, rgba(242,244,6,1) 100%)",
       text: "MEDIUM",
-      numberOfCorrectAnswers: getNumberOfCorrectAnswers(scores[1] || 0, 2),
+      numberOfCorrectAnswers: getResults(userInfo?.score_medium || 0, 2),
       mode: "medium",
     },
     {
       color:
         "radial-gradient(circle, rgba(247,121,121,1) 0%, rgba(222,15,15,1) 100%)",
       text: "HARD",
-      numberOfCorrectAnswers: getNumberOfCorrectAnswers(scores[2] || 0, 3),
+      numberOfCorrectAnswers: getResults(userInfo?.score_hard || 0, 3),
       mode: "hard",
     },
   ];

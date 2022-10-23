@@ -3,12 +3,19 @@ import {
   hardQuestions,
   mediumQuestions,
 } from "../../data/questions";
+import {performServiceCall} from '../../utils/api'
 
 const modes = [
   { questionMode: "easy", questions: easyQuestions },
   { questionMode: "medium", questions: mediumQuestions },
   { questionMode: "hard", questions: hardQuestions },
 ];
+
+export const modeMultiplier = new Map([
+  ['easy', 1],
+  ['medium', 2],
+  ['hard', 3],
+])
 
 export const selectedQuestions = (mode) =>
   modes.find(({ questionMode }) => {
@@ -49,24 +56,34 @@ export const selectAnswer = (
   setSubmittedAnswers(latestAnswers);
 };
 
-export const onClickHandler = (
+export const onClickHandler = async (
+  mode,
   submittedAnswers,
   setDialogDetail,
   setOpen,
   getResult
 ) => {
-  // navigate("/home");
   if (submittedAnswers.length !== 10) {
     setDialogDetail({
       title: "Alert",
       detail: "Please answer all the questions before you submit.",
     });
   } else {
-    // TODO: pull API call here
+    await updateResult(mode, getResult())
     setDialogDetail({
       title: "Results",
-      detail: `Your result is ${getResult()}/10`,
+      detail: `Your final score is ${getResult()}`,
     });
   }
   setOpen(true);
 };
+
+const updateResult = async (mode, score) => {
+  const params = {mode, score: score}
+  try {
+    await performServiceCall("POST", "score", params);
+  } catch (error) {
+    alert('Error getting user info: ', error);
+    throw error
+  }
+}

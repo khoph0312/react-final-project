@@ -12,7 +12,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "../../components";
 import { questionStyle, selectionStyle, questionPageStyle } from "./styles";
-import { selectedQuestions, selectAnswer, onClickHandler } from "./util";
+import { selectedQuestions, selectAnswer, onClickHandler, modeMultiplier } from "./util";
 import { Close } from "@mui/icons-material";
 
 const Questions = () => {
@@ -70,7 +70,8 @@ const Questions = () => {
     submittedAnswers.map(({ questionNumber, answer }) => {
       if (questionsList[questionNumber].correctAnswer === answer) count++;
     });
-    return count;
+    const multiplier = modeMultiplier.get(mode)
+    return count * multiplier;
   };
 
   const onCloseHandler = () => {
@@ -84,7 +85,7 @@ const Questions = () => {
     <div style={{ padding: "16px 0" }}>
       <Button
         onClick={() =>
-          onClickHandler(submittedAnswers, setDialogDetail, setOpen, getResult)
+          onClickHandler(mode, submittedAnswers, setDialogDetail, setOpen, getResult)
         }
       >
         Submit Answer

@@ -11,9 +11,8 @@ export const performServiceCall = async (method, apiUrl, body) => {
             header = {...header, body: JSON.stringify(body)}
         }
         const token = localStorage.getItem('token');
-        console.log(token)
         if (token) {
-            header = {...header, headers:{'x-access-token': token}}
+            header = {...header, headers:{'x-access-token': token, 'Content-Type': 'application/json'}}
         }
         const response = await fetch(`http://localhost:5000/${apiUrl}`, header);
         const responseCode = response.status;
