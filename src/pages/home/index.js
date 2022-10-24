@@ -11,7 +11,7 @@ const Home = () => {
 
   const getUserInfo = async () => {
     try {
-      const result = await performServiceCall("GET", "user");
+      const result = await performServiceCall(navigate, "GET", "user");
       setUserInfo(result?.data);
     } catch (error) {
       alert('Error getting user info: ', error);

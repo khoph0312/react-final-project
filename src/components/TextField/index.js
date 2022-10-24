@@ -9,6 +9,7 @@ const TextField = ({
   helperText,
   onChange,
   value,
+  type
 }) => {
   return (
     <StyledTextField
@@ -19,6 +20,7 @@ const TextField = ({
       label={label}
       error={error}
       helperText={helperText}
+      type={type}
     ></StyledTextField>
   );
 };

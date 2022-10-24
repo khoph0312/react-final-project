@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Typography, Box, Grid } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { leaderBoardColumn, topFiveList } from "../../data/leaderboard";
+import { leaderBoardColumn } from "../../data/leaderboard";
+import {performServiceCall} from '../../utils/api'
+import { useNavigate } from "react-router-dom";
 
 const Leaderboard = () => {
-  const rank = 37;
+  const [leaderboard, setLeaderboard] = useState()
+  const navigate = useNavigate()
+  
+  const getLeaderboard = async() => {
+    try {
+      const result = await performServiceCall(navigate, "GET", "leaderboard");
+      setLeaderboard(result);
+    } catch (error) {
+      alert('Error getting leaderboard: ', error);
+    }
+  }
+
+  useLayoutEffect(() => {
+    getLeaderboard()
+  }, [])
+
+  const getTableRows = () => {
+    const data = leaderboard?.data || []
+    return data.map((item, index) => {
+      return {...item, id: index  +1}
+    })
+  }
+
   return (
     <Box sx={{ padding: "32px 128px" }}>
       <Box
@@ -21,7 +45,7 @@ const Leaderboard = () => {
           variant="h4"
           align="center"
           sx={{ paddingBottom: "60px" }}
-        >{`You are now in Rank ${rank}`}</Typography>
+        >{`You are now in Rank ${leaderboard?.rank?.rank}`}</Typography>
         <Grid container justifyContent="center">
           <Box
             sx={{
@@ -30,7 +54,7 @@ const Leaderboard = () => {
           >
             <DataGrid
               columns={leaderBoardColumn}
-              rows={topFiveList}
+              rows={getTableRows()}
               autoHeight
               sx={{ backgroundColor: "cornsilk" }}
               hideFooter

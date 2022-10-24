@@ -4,16 +4,19 @@ import { Formik, Form } from "formik";
 import { contactUsValidation } from "../../utils/validation";
 import { Button, TextField } from "../../components";
 import {performServiceCall} from '../../utils/api'
+import { useNavigate } from "react-router-dom";
 
 const ContactForm = () => {
   const checkError = (touched, error) => {
     return touched && error;
   };
 
+  const navigate = useNavigate()
+
   const sendMessage = async (values) => {
     const { name, email, subject, message } = values;
     try {
-      await performServiceCall('POST', 'contact', {name, email, subject, message});
+      await performServiceCall(navigate, 'POST', 'contact', {name, email, subject, message});
       alert('message sent');
       } catch (error) {
         alert(error);

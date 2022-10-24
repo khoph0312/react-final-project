@@ -4,7 +4,7 @@ const requestHeader = {
     },
   };
 
-export const performServiceCall = async (method, apiUrl, body) => {
+export const performServiceCall = async (navigate, method, apiUrl, body) => {
     try {
         let header = {...requestHeader, method};
         if (body) {
@@ -19,6 +19,12 @@ export const performServiceCall = async (method, apiUrl, body) => {
         const formattedResponse = await response.json();
         if (responseCode === 200) {
             return formattedResponse;
+        }
+        if (formattedResponse.message === 'Invalid token') {
+            alert('Session expired. You are required to login again.')
+            localStorage.removeItem('token')
+            navigate('/')
+            return
         }
         const errorMessage = formattedResponse?.errorMessage
         throw errorMessage;

@@ -85,7 +85,7 @@ const Questions = () => {
     <div style={{ padding: "16px 0" }}>
       <Button
         onClick={() =>
-          onClickHandler(mode, submittedAnswers, setDialogDetail, setOpen, getResult)
+          onClickHandler(mode, submittedAnswers, setDialogDetail, setOpen, getResult, navigate)
         }
       >
         Submit Answer

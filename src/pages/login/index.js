@@ -12,7 +12,7 @@ const Login = () => {
   const login = async (values) => {
     const { username, password } = values;
     try {
-      const result = await performServiceCall('POST', 'login', {username, password});
+      const result = await performServiceCall(navigate, 'POST', 'login', {username, password});
       const token = result.token
       localStorage.setItem('token', token)
       navigate('/home');
@@ -64,6 +64,7 @@ const Login = () => {
                       value={values.password}
                       id="password"
                       label="Password"
+                      type='password'
                       error={checkError(touched.password, errors.password)}
                       helperText={
                         checkError(touched.password, errors.password)

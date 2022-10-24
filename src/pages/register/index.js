@@ -12,7 +12,7 @@ const Register = () => {
   const onLogin = async (values) => {
     const { username, password } = values;
     try {
-    const result = await performServiceCall('POST', 'register', {username, password});
+    const result = await performServiceCall(navigate, 'POST', 'register', {username, password});
     } catch (error) {
       console.error("Error while registering user: ", error);
       alert("Wrong username or password.");
@@ -59,6 +59,7 @@ const Register = () => {
                       value={values.password}
                       id="password"
                       label="Password"
+                      type='password'
                       error={checkError(touched.password, errors.password)}
                       helperText={
                         checkError(touched.password, errors.password)
@@ -73,6 +74,7 @@ const Register = () => {
                       value={values.confirmPassword}
                       id="confirmPassword"
                       label="Confirm Password"
+                      type='password'
                       error={checkError(
                         touched.confirmPassword,
                         errors.confirmPassword

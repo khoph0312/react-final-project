@@ -61,7 +61,8 @@ export const onClickHandler = async (
   submittedAnswers,
   setDialogDetail,
   setOpen,
-  getResult
+  getResult,
+  navigate
 ) => {
   if (submittedAnswers.length !== 10) {
     setDialogDetail({
@@ -69,7 +70,7 @@ export const onClickHandler = async (
       detail: "Please answer all the questions before you submit.",
     });
   } else {
-    await updateResult(mode, getResult())
+    await updateResult(mode, getResult(), navigate)
     setDialogDetail({
       title: "Results",
       detail: `Your final score is ${getResult()}`,
@@ -78,10 +79,10 @@ export const onClickHandler = async (
   setOpen(true);
 };
 
-const updateResult = async (mode, score) => {
+const updateResult = async (mode, score, navigate) => {
   const params = {mode, score: score}
   try {
-    await performServiceCall("POST", "score", params);
+    await performServiceCall(navigate, "POST", "score", params);
   } catch (error) {
     alert('Error getting user info: ', error);
     throw error

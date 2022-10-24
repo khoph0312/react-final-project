@@ -12,7 +12,7 @@ const ForgetPassword = () => {
   const onForgetPassword = async (values) => {
     const {username, password} = values
     try {
-      await performServiceCall('POST', 'forget', {username, password});
+      await performServiceCall(navigate, 'POST', 'forget', {username, password});
       alert("Password Changed");
       navigate("/");
     } catch (error) {
@@ -60,6 +60,7 @@ const ForgetPassword = () => {
                       value={values.password}
                       id="password"
                       label="Password"
+                      type='password'
                       error={checkError(touched.password, errors.password)}
                       helperText={
                         checkError(touched.password, errors.password)
@@ -74,6 +75,7 @@ const ForgetPassword = () => {
                       value={values.confirmPassword}
                       id="confirmPassword"
                       label="Confirm Password"
+                      type='password'
                       error={checkError(
                         touched.confirmPassword,
                         errors.confirmPassword
